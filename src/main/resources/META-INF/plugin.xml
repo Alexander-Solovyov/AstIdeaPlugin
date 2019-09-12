@@ -1,0 +1,28 @@
+<idea-plugin>
+    <id>com.alexander.solovyov.selected_ast</id>
+    <name>AST and statistics of selected</name>
+    <vendor email="solovyov.alexander.a@gmail.com">Solovyov Alexander</vendor>
+
+    <description><![CDATA[
+    This plugin allows to build AST and show some statics for a selected code fragment
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <group id="SelectedAst.ShowAst" text="AST of Selected" description="AST and statistics of selected">
+            <add-to-group group-id="MainToolBar" anchor="last"/>
+            <action id="SelectedAst.ShowingButton" class="ShowAstAction" text="Display AST"
+                    description="Show AST of selected fragment and variable usage statistics"/>
+        </group>
+    </actions>
+</idea-plugin>
