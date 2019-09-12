@@ -59,6 +59,7 @@ public class ShowAstAction extends AnAction {
         Content content = contentFactory.createContent(window.getContent(),"AST and Statistics", false);
         toolWindow.getContentManager().removeAllContents(true);
         toolWindow.getContentManager().addContent(content);
+        toolWindow.show(null);
     }
 
     @Override
