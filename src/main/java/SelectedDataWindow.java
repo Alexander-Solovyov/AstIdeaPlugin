@@ -15,7 +15,7 @@ final class SelectedDataWindow {
     private int thrownExceptionsNumber = 0;
 
     SelectedDataWindow(@NotNull final ASTNode topASTNode, final int selectionStart, final int selectionEnd) {
-        final Tree astTreeView = new Tree(BuildAstTree(topASTNode, selectionStart, selectionEnd));
+        final Tree astTreeView = new Tree(buildAstTree(topASTNode, selectionStart, selectionEnd));
         astTreeView.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
         final JTextPane statisticsView = new JTextPane();
         statisticsView.setFont(statisticsView.getFont().deriveFont(14f));
@@ -29,7 +29,7 @@ final class SelectedDataWindow {
         panel.add(statisticsView, BorderLayout.SOUTH);
     }
 
-    private MutableTreeNode BuildAstTree(@NotNull ASTNode topASTNode, int selectionStart, int selectionEnd) {
+    private MutableTreeNode buildAstTree(@NotNull ASTNode topASTNode, int selectionStart, int selectionEnd) {
         if (topASTNode.getElementType().toString().equals("CODE_BLOCK") &&
                 !topASTNode.getTextRange().equalsToRange(selectionStart, selectionEnd + 1)) {
             final DefaultMutableTreeNode topNode = new DefaultMutableTreeNode("Statements");
