@@ -13,7 +13,10 @@ The second purpose is to create **SelectedDataWindow** instance and pass all the
 This class is needed to build a form content which later can be requested and placed in *toolWindow*. This class has constructor which builds content, package-private method for requesting content and one recursive method which is needed to go through AST. 
 
 #### Constructor
-When constructor is called it's first action is to check, whether a full block of code is selected or only it's part. Based on result of this check the analysis starts either from the given AST node or to make a new parent node for display purposes and to do independent analysis for nodes children. Without it much more code than selected could've been analyzed. After these actions constructor creates all the objects needed to display data.
+Constructor calls *BuildAstTree* to analyse AST and to build all nodes needed for its representatopm. After that constructor creates all the objects needed to display data on frame.
+
+#### BuildAstTree
+First of all, *BuildAstTree* checks, whether a full block of code is selected or only it's part. Based on result of this check the analysis starts either for the given AST node or for its children which are attached to a custom node. It is needed not to analyse AST of bigger code fragments than needed. An example bellow shows what situation this check escapes:
 <details>
   <summary>Example showing why a check on "full block" was needed</summary>
 
@@ -33,7 +36,7 @@ Selected code:
   Call1(x, y);
 ```
 
-Analyzed part from the given AST Node:
+Analyzed part for the given AST Node:
 ```java
 {
   int x = getX();

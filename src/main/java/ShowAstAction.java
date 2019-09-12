@@ -12,7 +12,7 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.sun.istack.NotNull;
 
-public class ShowAstAction extends AnAction {
+final public class ShowAstAction extends AnAction {
     public ShowAstAction() {
         super("Build AST");
     }
@@ -26,36 +26,36 @@ public class ShowAstAction extends AnAction {
             return;
         }
 
-        final PsiFile psiFile= event.getData(LangDataKeys.PSI_FILE);
+        final PsiFile psiFile = event.getData(LangDataKeys.PSI_FILE);
 
         if (psiFile == null) {
             Messages.showMessageDialog(project, "Can't get PSI view", "Warning", Messages.getWarningIcon());
             return;
         }
 
-        PsiElement firstElement = psiFile.findElementAt(editor.getSelectionModel().getSelectionStart());
-        PsiElement lastElement = psiFile.findElementAt(editor.getSelectionModel().getSelectionEnd() - 1);
+        final PsiElement firstElement = psiFile.findElementAt(editor.getSelectionModel().getSelectionStart());
+        final PsiElement lastElement = psiFile.findElementAt(editor.getSelectionModel().getSelectionEnd() - 1);
         if (firstElement == null || lastElement == null) {
             Messages.showInfoMessage("PSI elements missed for selection!", "PSI Elements Missed");
             return;
         }
-        PsiElement rootElement = PsiTreeUtil.findCommonContext(firstElement, lastElement);
+        final PsiElement rootElement = PsiTreeUtil.findCommonContext(firstElement, lastElement);
         if (rootElement == null) {
             Messages.showInfoMessage("Couldn't find top PSI element for selection!", "Top PSI Element Missed");
             return;
         }
 
-        SelectedDataWindow window = new SelectedDataWindow(
+        final SelectedDataWindow window = new SelectedDataWindow(
                 rootElement.getNode(), editor.getSelectionModel().getSelectionStart(), editor.getSelectionModel().getSelectionEnd() - 1);
-        ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
+        final ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
         ToolWindow toolWindow = toolWindowManager.getToolWindow("SelectedAst.ShowData");
         if (toolWindow == null) {
             toolWindow = ToolWindowManager.getInstance(project).registerToolWindow(
                     "SelectedAst.ShowData", false, ToolWindowAnchor.RIGHT);
             toolWindow.setTitle("AST and Statistics");
         }
-        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(window.getContent(),"AST and Statistics", false);
+        final ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        final Content content = contentFactory.createContent(window.getContent(), "AST and Statistics", false);
         toolWindow.getContentManager().removeAllContents(true);
         toolWindow.getContentManager().addContent(content);
         toolWindow.show(null);
